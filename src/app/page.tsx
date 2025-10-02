@@ -9,7 +9,7 @@ import { useChat } from "@/hooks/useChat";
 import { useChatHistory } from "@/hooks/useChatHistory";
 
 export default function Home() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const { messages, send, isStreaming, forceRefresh } = useChat();
   const { currentChatId, isLoading, createNewChat } = useChatHistory();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -91,7 +91,7 @@ export default function Home() {
             <div className="max-w-3xl mx-auto h-full px-4 lg:px-0">
               <ChatWindow
                 key={currentChatId || "no-chat"} // Force re-render when chat changes
-                scrollRef={scrollRef}
+                scrollRef={scrollRef as React.RefObject<HTMLDivElement>}
                 messages={messages}
                 isStreaming={isStreaming}
                 currentChatId={currentChatId} // Pass currentChatId as prop for debugging

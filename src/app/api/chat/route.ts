@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { NextRequest } from "next/server";
 import { streamText } from "ai";
 import { getProvider } from "@/lib/ai/provider";
@@ -37,7 +39,7 @@ export async function POST(req: NextRequest) {
     }
 
     const result = await streamText({
-      model,
+      model : model as any,
       messages: trimmed,
     });
 
