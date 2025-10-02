@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     const provider = getProvider(providerName);
     
     // Model selection based on provider
-    const model = providerName === "anthropic" 
+    const model:any = providerName === "anthropic" 
       ? provider("claude-3-5-sonnet-20241022") // Latest Claude
       : provider(config?.model || "gpt-4o-mini");
 
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     }
 
     const result = await streamText({
-      model : model as any,
+      model ,
       messages: trimmed,
     });
 
