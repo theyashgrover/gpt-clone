@@ -30,7 +30,7 @@ export function ChatWindow({
         currentChatId
       );
     };
-  }, []); // Empty dependency array = only on mount/unmount
+  }, [currentChatId]); // Empty dependency array = only on mount/unmount
 
   useEffect(() => {
     if (!scrollRef.current) return;
