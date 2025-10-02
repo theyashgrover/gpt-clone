@@ -1,26 +1,303 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ChatGPT Exact Colors */
+  --background: #212121;
+  --foreground: #ececf1;
+  --muted: #2a2a2a;
+  --muted-foreground: #8e8ea0;
+  --border: #4d4d4f;
+  --accent: #10a37f;
+  --sidebar-bg: #171717;
+  --sidebar-border: #2a2a2a;
+  --chat-bg: #212121;
+  --user-message-bg: #2a2a2a;
+  --assistant-message-bg: #212121;
+  --input-bg: #2a2a2a;
+  --input-border: #4d4d4f;
+  --button-primary: #10a37f;
+  --button-primary-hover: #0d8a6b;
+  --text-primary: #ececf1;
+  --text-secondary: #8e8ea0;
+  --text-muted: #6b7280;
+  --hover-bg: #2a2a2a;
+  --active-bg: #3a3a3a;
 }
 
 @theme inline {
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-chat-bg: var(--chat-bg);
+  --color-user-message-bg: var(--user-message-bg);
+  --color-assistant-message-bg: var(--assistant-message-bg);
+  --color-input-bg: var(--input-bg);
+  --color-input-border: var(--input-border);
+  --color-button-primary: var(--button-primary);
+  --color-button-primary-hover: var(--button-primary-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-hover-bg: var(--hover-bg);
+  --color-active-bg: var(--active-bg);
+
+  /* Typography */
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
+  --text-base: 14px;
+  --text-sm: 12px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+
+  /* Spacing */
+  --spacing-0: 0;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ChatGPT-style focus ring */
+:where(
+    button,
+    a,
+    textarea,
+    input,
+    [tabindex]:not([tabindex="-1"])
+  ):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ChatGPT-style scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4d4d4f transparent;
+}
+
+*::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #4d4d4f;
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #6b7280;
+}
+
+/* Message styling */
+.message-content {
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.message-content p {
+  margin: 0 0 1em 0;
+}
+
+.message-content p:last-child {
+  margin-bottom: 0;
+}
+
+.message-content code {
+  background-color: var(--color-muted);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+}
+
+.message-content pre {
+  background-color: var(--color-muted);
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.message-content pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes typing {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.streaming-cursor {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.typing-dots {
+  animation: typing 1.4s ease-in-out infinite;
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Button animations */
+.btn-primary {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 163, 127, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Input focus effects */
+.input-focus {
+  transition: all 0.2s ease;
+}
+
+.input-focus:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(16, 163, 127, 0.1);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Prevent zoom on input focus on iOS */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Better touch targets */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Optimize scrolling on mobile */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbars on mobile for cleaner look */
+  * {
+    scrollbar-width: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Responsive text sizing */
+@media (max-width: 640px) {
+  .message-content {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+/* Safe area handling for mobile devices with notches */
+@supports (padding: max(0px)) {
+  .h-screen {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  }
 }
